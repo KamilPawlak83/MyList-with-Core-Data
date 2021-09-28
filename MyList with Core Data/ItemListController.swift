@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ItemListController.swift
 //  MyList with Core Data
 //
 //  Created by Kamil Pawlak on 28/09/2021.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ItemListViewController: UITableViewController {
+class ItemListController: UITableViewController {
 
     var itemList = ["Kamil", "Angelika"]
     
