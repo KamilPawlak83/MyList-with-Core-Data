@@ -6,14 +6,19 @@
 //
 
 import UIKit
+import CoreData
 
 class ItemListController: UITableViewController {
 
-    var itemList = ["Kamil", "Angelika"]
+    var itemList = [Item]()
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        loadItems()
     }
 
     
@@ -25,35 +30,78 @@ class ItemListController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemListCell", for: indexPath)
-        cell.textLabel?.text = itemList[indexPath.row]
+        cell.textLabel?.text = itemList[indexPath.row].name
+        
+        // This is a Ternary Operation
+        cell.accessoryType = itemList[indexPath.row].checkmark == true ? .checkmark : .none
+        
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .none
-        } else {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-        }
+        // We change the state to the opposite (.checkmark or .none)
+        itemList[indexPath.row].checkmark = !itemList[indexPath.row].checkmark
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        saveItems()
     }
  
     //MARK: - Add Button Pressed
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         let ac = UIAlertController(title: "Add item", message: nil, preferredStyle: .alert)
-        ac.addTextField()
+        
+        ac.addTextField { (textField) in
+            textField.placeholder = "Type something"
+        }
         
         let submitAction = UIAlertAction(title: "Submit", style: .default) {
             [weak ac] _ in
-            guard let answer = ac?.textFields?[0].text else {return}
-            self.itemList.append(answer)
-            self.tableView.reloadData()
+            let newItem = Item(context: self.context)
+            newItem.checkmark = false
+            
+            newItem.name = ac?.textFields?[0].text ?? "New Item"
+            self.itemList.append(newItem)
+            
+            self.saveItems()
         }
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
         ac.addAction(submitAction)
         ac.addAction(cancelAction)
         present(ac, animated: true)
+    }
+    
+    //MARK: - Save Items
+    
+    func saveItems() {
+        
+        do {
+        try context.save()
+        } catch {
+            print("Saving error: \(error)")
+        }
+        
+        self.tableView.reloadData()
+        
+    }
+    
+    //MARK: - Load Items
+    
+    func loadItems() {
+        
+        let request : NSFetchRequest<Item> = Item.fetchRequest()
+        do {
+            itemList = try context.fetch(request)
+        } catch {
+            print("Error fetching data from context \(error)")
+        }
+        
+        
+        
     }
     
 }
