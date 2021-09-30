@@ -85,24 +85,45 @@ class ItemListController: UITableViewController {
             print("Saving error: \(error)")
         }
         
-        self.tableView.reloadData()
+        tableView.reloadData()
         
     }
     
     //MARK: - Load Items
-    
-    func loadItems() {
+    // Item.fetchRequest() is a default value in this case
+    func loadItems(with request : NSFetchRequest<Item> = Item.fetchRequest()) {
         
-        let request : NSFetchRequest<Item> = Item.fetchRequest()
         do {
             itemList = try context.fetch(request)
         } catch {
             print("Error fetching data from context \(error)")
         }
         
+        tableView.reloadData()
+    }
+}
+
+//MARK: - SearchBar Section
+extension ItemListController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let request: NSFetchRequest<Item> = Item.fetchRequest()
         
+        request.predicate = NSPredicate(format: "name CONTAINS[cd] %@", searchBar.text!)
+        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         
+       loadItems(with: request)
+        
+    }
+   // We back to main state before we search something
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            loadItems()
+            
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+            
+        }
     }
     
 }
-
