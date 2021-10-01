@@ -122,8 +122,6 @@ extension ItemListController: UISearchBarDelegate {
             DispatchQueue.main.async {
                 searchBar.resignFirstResponder()
             }
-            
         }
     }
-    
 }

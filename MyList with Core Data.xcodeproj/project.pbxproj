@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E3C9244270704FC00CBAD52 /* MyListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C9243270704FC00CBAD52 /* MyListController.swift */; };
 		8ED2C6EA27032C1800CA1F85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED2C6E927032C1800CA1F85 /* AppDelegate.swift */; };
 		8ED2C6EC27032C1800CA1F85 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED2C6EB27032C1800CA1F85 /* SceneDelegate.swift */; };
 		8ED2C6F127032C1800CA1F85 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8ED2C6EF27032C1800CA1F85 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8E3C9243270704FC00CBAD52 /* MyListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListController.swift; sourceTree = "<group>"; };
 		8ED2C6E627032C1800CA1F85 /* MyList with Core Data.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyList with Core Data.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8ED2C6E927032C1800CA1F85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8ED2C6EB27032C1800CA1F85 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,6 +41,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8E3C92452707052A00CBAD52 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				8E3C9243270704FC00CBAD52 /* MyListController.swift */,
+				8ED2C700270352CC00CA1F85 /* ItemListController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		8E3C92462707054200CBAD52 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8ED2C6F227032C1800CA1F85 /* MyList_with_Core_Data.xcdatamodeld */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8E3C92472707055400CBAD52 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8ED2C6EF27032C1800CA1F85 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		8ED2C6DD27032C1700CA1F85 = {
 			isa = PBXGroup;
 			children = (
@@ -60,12 +87,12 @@
 			children = (
 				8ED2C6E927032C1800CA1F85 /* AppDelegate.swift */,
 				8ED2C6EB27032C1800CA1F85 /* SceneDelegate.swift */,
-				8ED2C6EF27032C1800CA1F85 /* Main.storyboard */,
+				8E3C92462707054200CBAD52 /* Model */,
+				8E3C92472707055400CBAD52 /* View */,
+				8E3C92452707052A00CBAD52 /* Controller */,
 				8ED2C6F527032C1C00CA1F85 /* Assets.xcassets */,
 				8ED2C6F727032C1C00CA1F85 /* LaunchScreen.storyboard */,
 				8ED2C6FA27032C1C00CA1F85 /* Info.plist */,
-				8ED2C6F227032C1800CA1F85 /* MyList_with_Core_Data.xcdatamodeld */,
-				8ED2C700270352CC00CA1F85 /* ItemListController.swift */,
 			);
 			path = "MyList with Core Data";
 			sourceTree = "<group>";
@@ -143,6 +170,7 @@
 			files = (
 				8ED2C6F427032C1800CA1F85 /* MyList_with_Core_Data.xcdatamodeld in Sources */,
 				8ED2C701270352CC00CA1F85 /* ItemListController.swift in Sources */,
+				8E3C9244270704FC00CBAD52 /* MyListController.swift in Sources */,
 				8ED2C6EA27032C1800CA1F85 /* AppDelegate.swift in Sources */,
 				8ED2C6EC27032C1800CA1F85 /* SceneDelegate.swift in Sources */,
 			);
