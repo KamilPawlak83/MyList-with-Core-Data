@@ -2,15 +2,15 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19206" systemVersion="20E232" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Category" representedClassName=".Category" syncable="YES" codeGenerationType="class">
         <attribute name="title" optional="YES" attributeType="String"/>
-        <relationship name="itemRelationship" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="parrentRelationship" inverseEntity="Item"/>
+        <relationship name="itemRelationship" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="parentRelationship" inverseEntity="Item"/>
     </entity>
     <entity name="Item" representedClassName=".Item" syncable="YES" codeGenerationType="class">
         <attribute name="checkmark" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="parrentRelationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="itemRelationship" inverseEntity="Category"/>
+        <relationship name="parentRelationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="itemRelationship" inverseEntity="Category"/>
     </entity>
     <elements>
-        <element name="Item" positionX="-63" positionY="-18" width="128" height="88"/>
         <element name="Category" positionX="-337.7500610351562" positionY="-21.53732299804688" width="128" height="73"/>
+        <element name="Item" positionX="-63" positionY="-18" width="128" height="88"/>
     </elements>
 </model>

@@ -22,7 +22,7 @@ class MyListController: UITableViewController {
        
     }
 
-    // MARK: - Table view data source
+    // MARK: - TableView Section
 
 
 
@@ -36,6 +36,26 @@ class MyListController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "goToItems", sender: self)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // We can have more than 1 segue. In this case we have only one
+        if segue.identifier == "goToItems" {
+                let destinationVC = segue.destination as! ItemListController
+               
+            if let indexPath = tableView.indexPathForSelectedRow {
+                destinationVC.categoryPressed = myList[indexPath.row]
+            }
+                
+            }
+        }
+       
+        
+        
+        
+        
+   
     //MARK: - Add Button Pressed
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         let ac = UIAlertController(title: "Add new list", message: nil, preferredStyle: .alert)

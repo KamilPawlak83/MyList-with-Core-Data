@@ -12,13 +12,17 @@ class ItemListController: UITableViewController {
 
     var itemList = [Item]()
     
+    var categoryPressed : Category? {
+        didSet{
+            loadItems()
+        }
+    }
+    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        loadItems()
     }
 
     
@@ -34,8 +38,7 @@ class ItemListController: UITableViewController {
         
         // This is a Ternary Operation
         cell.accessoryType = itemList[indexPath.row].checkmark == true ? .checkmark : .none
-        
-        
+         
         return cell
     }
     
@@ -61,7 +64,7 @@ class ItemListController: UITableViewController {
             [weak ac] _ in
             let newItem = Item(context: self.context)
             newItem.checkmark = false
-            
+            newItem.parentRelationship = self.categoryPressed
             newItem.name = ac?.textFields?[0].text ?? "New Item"
             self.itemList.append(newItem)
             
@@ -91,7 +94,15 @@ class ItemListController: UITableViewController {
     
     //MARK: - Load Items
     // Item.fetchRequest() is a default value in this case
-    func loadItems(with request : NSFetchRequest<Item> = Item.fetchRequest()) {
+    func loadItems(with request : NSFetchRequest<Item> = Item.fetchRequest(), predicate : NSPredicate? = nil) {
+        
+        let categoryPredicate = NSPredicate(format: "parentRelationship.title matchEs %@", categoryPressed!.title!)
+        
+        if let secondPredicate = predicate {
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, secondPredicate] )
+        } else {
+            request.predicate = categoryPredicate
+        }
         
         do {
             itemList = try context.fetch(request)
@@ -108,10 +119,10 @@ extension ItemListController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let request: NSFetchRequest<Item> = Item.fetchRequest()
         
-        request.predicate = NSPredicate(format: "name CONTAINS[cd] %@", searchBar.text!)
+        let predicate = NSPredicate(format: "name CONTAINS[cd] %@", searchBar.text!)
         request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         
-       loadItems(with: request)
+       loadItems(with: request, predicate: predicate)
         
     }
    // We back to main state before we search something
