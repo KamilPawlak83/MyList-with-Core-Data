@@ -125,13 +125,7 @@ extension MyListController: SwipeTableViewCellDelegate {
 
             return [deleteAction]
     }
-    
-    // This is animaton for delete action
-    func collectionView(_ collectionView: UICollectionView, editActionsOptionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
-        var options = SwipeOptions()
-        options.expansionStyle = .destructive
-        return options
-    }
+ 
     
     
 }
