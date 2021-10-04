@@ -7,32 +7,32 @@
 
 import UIKit
 import CoreData
+import SwipeCellKit
+
 
 class MyListController: UITableViewController {
 
     var myList = [Category]()
-    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loadItems()
        
+        tableView.rowHeight = 65.0
     }
 
     // MARK: - TableView Section
-
-
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
          return myList.count
     }
         
         override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MyListCell", for: indexPath)
-            cell.textLabel?.text = myList[indexPath.row].title
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyListCell", for: indexPath) as! SwipeTableViewCell
+        cell.textLabel?.text = myList[indexPath.row].title
+        cell.delegate = self
         return cell
     }
     
@@ -51,10 +51,6 @@ class MyListController: UITableViewController {
             }
         }
        
-        
-        
-        
-        
    
     //MARK: - Add Button Pressed
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
@@ -108,13 +104,34 @@ class MyListController: UITableViewController {
         
         tableView.reloadData()
     }
-        
-        
-        
-        
-        
-        
-        
-    
 
+}
+//MARK: - Swipe Cell Delegate Section
+
+extension MyListController: SwipeTableViewCellDelegate {
+     
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        guard orientation == .right else { return nil }
+
+            let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
+                // handle action by updating model with deletion
+                self.context.delete(self.myList[indexPath.row])
+                self.myList.remove(at: indexPath.row)
+                
+                self.saveItems()
+            }
+            // Here is our "Trash" icon
+            deleteAction.image = UIImage(named: "Trash")
+
+            return [deleteAction]
+    }
+    
+    // This is animaton for delete action
+    func collectionView(_ collectionView: UICollectionView, editActionsOptionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
+        var options = SwipeOptions()
+        options.expansionStyle = .destructive
+        return options
+    }
+    
+    
 }
