@@ -12,14 +12,12 @@ class ItemListController: SwipeCellKitController {
 
     var itemList = [Item]()
     
+    // when the category in MyList was pressed - load list with items.
     var categoryPressed : Category? {
         didSet{
             loadItems()
         }
     }
-    
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,21 +31,19 @@ class ItemListController: SwipeCellKitController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+       // We inherit cell from SwipeCellKitController and override it
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         cell.textLabel?.text = itemList[indexPath.row].name
         
         // This is a Ternary Operation
         cell.accessoryType = itemList[indexPath.row].checkmark == true ? .checkmark : .none
-         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // We change the state to the opposite (.checkmark or .none)
         itemList[indexPath.row].checkmark = !itemList[indexPath.row].checkmark
-        
         tableView.deselectRow(at: indexPath, animated: true)
-        
         saveItems()
     }
  
@@ -67,7 +63,6 @@ class ItemListController: SwipeCellKitController {
             newItem.parentRelationship = self.categoryPressed
             newItem.name = ac?.textFields?[0].text ?? "New Item"
             self.itemList.append(newItem)
-            
             self.saveItems()
         }
         
@@ -80,16 +75,9 @@ class ItemListController: SwipeCellKitController {
     
     //MARK: - Save Items
     
-    func saveItems() {
-        
-        do {
-        try context.save()
-        } catch {
-            print("Saving error: \(error)")
-        }
-        
+    override func saveItems() {
+        super.saveItems()
         tableView.reloadData()
-        
     }
     
     //MARK: - Load Items
@@ -115,12 +103,10 @@ class ItemListController: SwipeCellKitController {
     //MARK: - Delete Items
     
     override func updateData(at indexPath: IndexPath) {
-                    self.context.delete(self.itemList[indexPath.row])
-                    self.itemList.remove(at: indexPath.row)
-                    self.saveItems()
+        self.context.delete(self.itemList[indexPath.row])
+        self.itemList.remove(at: indexPath.row)
+        self.saveItems()
     }
-    
-    
 }
 
 //MARK: - SearchBar Section
@@ -131,7 +117,7 @@ extension ItemListController: UISearchBarDelegate {
         let predicate = NSPredicate(format: "name CONTAINS[cd] %@", searchBar.text!)
         request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         
-       loadItems(with: request, predicate: predicate)
+        loadItems(with: request, predicate: predicate)
         
     }
    // We back to main state before we search something

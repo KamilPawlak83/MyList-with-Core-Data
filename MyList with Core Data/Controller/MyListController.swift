@@ -8,18 +8,13 @@
 import UIKit
 import CoreData
 
-
-
 class MyListController: SwipeCellKitController {
 
     var myList = [Category]()
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         loadItems()
-       
        
     }
 
@@ -28,31 +23,27 @@ class MyListController: SwipeCellKitController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
          return myList.count
     }
-      
-    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // We inherit cell from SwipeCellKitController and override it
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
-         
         cell.textLabel?.text = myList[indexPath.row].title
-     
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "goToItems", sender: self)
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // We can have more than 1 segue. In this case we have only one
         if segue.identifier == "goToItems" {
                 let destinationVC = segue.destination as! ItemListController
-               
-            if let indexPath = tableView.indexPathForSelectedRow {
-                destinationVC.categoryPressed = myList[indexPath.row]
-            }
-                
-            }
+                if let indexPath = tableView.indexPathForSelectedRow {
+                    destinationVC.categoryPressed = myList[indexPath.row]
+                }
         }
+    }
        
    
     //MARK: - Add Button Pressed
@@ -82,16 +73,9 @@ class MyListController: SwipeCellKitController {
         
     //MARK: - Save Items
     
-    func saveItems() {
-        
-        do {
-        try context.save()
-        } catch {
-            print("Saving error: \(error)")
-        }
-        
+    override func saveItems() {
+        super.saveItems()
         tableView.reloadData()
-        
     }
     
     //MARK: - Load Items
@@ -111,11 +95,10 @@ class MyListController: SwipeCellKitController {
     //MARK: - Delete Items
     
     override func updateData(at indexPath: IndexPath) {
-                    self.context.delete(self.myList[indexPath.row])
-                    self.myList.remove(at: indexPath.row)
-                    self.saveItems()
+            self.context.delete(self.myList[indexPath.row])
+            self.myList.remove(at: indexPath.row)
+            self.saveItems()
     }
-
 }
 
 
