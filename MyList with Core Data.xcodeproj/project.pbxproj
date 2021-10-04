@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8E3C9244270704FC00CBAD52 /* MyListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C9243270704FC00CBAD52 /* MyListController.swift */; };
+		8E7BB1B1270B09C6009803E4 /* SwipeCellKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8E7BB1B0270B09C6009803E4 /* SwipeCellKit */; };
 		8ED2C6EA27032C1800CA1F85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED2C6E927032C1800CA1F85 /* AppDelegate.swift */; };
 		8ED2C6EC27032C1800CA1F85 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED2C6EB27032C1800CA1F85 /* SceneDelegate.swift */; };
 		8ED2C6F127032C1800CA1F85 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8ED2C6EF27032C1800CA1F85 /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E7BB1B1270B09C6009803E4 /* SwipeCellKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,6 +115,9 @@
 			dependencies = (
 			);
 			name = "MyList with Core Data";
+			packageProductDependencies = (
+				8E7BB1B0270B09C6009803E4 /* SwipeCellKit */,
+			);
 			productName = "MyList with Core Data";
 			productReference = 8ED2C6E627032C1800CA1F85 /* MyList with Core Data.app */;
 			productType = "com.apple.product-type.application";
@@ -141,6 +146,9 @@
 				Base,
 			);
 			mainGroup = 8ED2C6DD27032C1700CA1F85;
+			packageReferences = (
+				8E7BB1AF270B09C6009803E4 /* XCRemoteSwiftPackageReference "SwipeCellKit" */,
+			);
 			productRefGroup = 8ED2C6E727032C1800CA1F85 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -392,6 +400,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8E7BB1AF270B09C6009803E4 /* XCRemoteSwiftPackageReference "SwipeCellKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwipeCellKit/SwipeCellKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8E7BB1B0270B09C6009803E4 /* SwipeCellKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8E7BB1AF270B09C6009803E4 /* XCRemoteSwiftPackageReference "SwipeCellKit" */;
+			productName = SwipeCellKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		8ED2C6F227032C1800CA1F85 /* MyList_with_Core_Data.xcdatamodeld */ = {

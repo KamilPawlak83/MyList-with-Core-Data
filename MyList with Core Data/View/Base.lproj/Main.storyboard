@@ -40,7 +40,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Item List" id="Zzc-9C-YF8">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Bp4-cQ-Ceu">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="addButtonPressed:" destination="lNI-iA-bTF" id="m99-BX-fGH"/>
                             </connections>
@@ -94,7 +93,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="My List" id="zVa-xL-5e7">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="EXr-Fe-b7G">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="addButtonPressed:" destination="bsQ-jn-o9Y" id="hY3-cZ-tEl"/>
                             </connections>
