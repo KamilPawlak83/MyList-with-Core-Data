@@ -7,10 +7,10 @@
 
 import UIKit
 import CoreData
-import SwipeCellKit
 
 
-class MyListController: UITableViewController {
+
+class MyListController: SwipeCellKitController {
 
     var myList = [Category]()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -20,7 +20,7 @@ class MyListController: UITableViewController {
         
         loadItems()
        
-        tableView.rowHeight = 65.0
+       
     }
 
     // MARK: - TableView Section
@@ -28,11 +28,14 @@ class MyListController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
          return myList.count
     }
-        
-        override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MyListCell", for: indexPath) as! SwipeTableViewCell
+      
+    
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+         
         cell.textLabel?.text = myList[indexPath.row].title
-        cell.delegate = self
+     
         return cell
     }
     
@@ -104,28 +107,15 @@ class MyListController: UITableViewController {
         
         tableView.reloadData()
     }
-
-}
-//MARK: - Swipe Cell Delegate Section
-
-extension MyListController: SwipeTableViewCellDelegate {
-     
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-        guard orientation == .right else { return nil }
-
-            let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
-                // handle action by updating model with deletion
-                self.context.delete(self.myList[indexPath.row])
-                self.myList.remove(at: indexPath.row)
-                
-                self.saveItems()
-            }
-            // Here is our "Trash" icon
-            deleteAction.image = UIImage(named: "Trash")
-
-            return [deleteAction]
+    
+    //MARK: - Delete Items
+    
+    override func updateData(at indexPath: IndexPath) {
+                    self.context.delete(self.myList[indexPath.row])
+                    self.myList.remove(at: indexPath.row)
+                    self.saveItems()
     }
- 
-    
-    
+
 }
+
+

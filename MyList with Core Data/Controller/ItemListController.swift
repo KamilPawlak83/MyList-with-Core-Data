@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class ItemListController: UITableViewController {
+class ItemListController: SwipeCellKitController {
 
     var itemList = [Item]()
     
@@ -33,7 +33,7 @@ class ItemListController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemListCell", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         cell.textLabel?.text = itemList[indexPath.row].name
         
         // This is a Ternary Operation
@@ -112,6 +112,15 @@ class ItemListController: UITableViewController {
         
         tableView.reloadData()
     }
+    //MARK: - Delete Items
+    
+    override func updateData(at indexPath: IndexPath) {
+                    self.context.delete(self.itemList[indexPath.row])
+                    self.itemList.remove(at: indexPath.row)
+                    self.saveItems()
+    }
+    
+    
 }
 
 //MARK: - SearchBar Section
