@@ -16,6 +16,7 @@ class ItemListController: SwipeCellKitController {
     var categoryPressed : Category? {
         didSet{
             loadItems()
+            title = categoryPressed?.title
         }
     }
     
