@@ -21,4 +21,4 @@ In addition, we have access to the searchbar and we can find the appropriate ite
  
 ### UI
 
-//TODO
+![MyList](https://user-images.githubusercontent.com/73897166/136010492-71976545-7334-4801-9c86-cbd7d898b674.png)
