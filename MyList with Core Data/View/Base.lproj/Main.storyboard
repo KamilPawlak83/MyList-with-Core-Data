@@ -68,7 +68,7 @@
             </objects>
             <point key="canvasLocation" x="-262.31884057971018" y="-15.401785714285714"/>
         </scene>
-        <!--My List-->
+        <!--My Lists-->
         <scene sceneID="yu6-pk-kU2">
             <objects>
                 <tableViewController id="bsQ-jn-o9Y" customClass="MyListController" customModule="MyList_with_Core_Data" customModuleProvider="target" sceneMemberID="viewController">
@@ -91,7 +91,7 @@
                             <outlet property="delegate" destination="bsQ-jn-o9Y" id="HA8-KB-7jS"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="My List" id="zVa-xL-5e7">
+                    <navigationItem key="navigationItem" title="My Lists" id="zVa-xL-5e7">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="EXr-Fe-b7G">
                             <connections>
                                 <action selector="addButtonPressed:" destination="bsQ-jn-o9Y" id="hY3-cZ-tEl"/>
