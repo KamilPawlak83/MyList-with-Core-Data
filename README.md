@@ -2,7 +2,10 @@
 
 ### Project Description
 
-//TODO
+In this project, we have the ability to create lists with items.
+We can create or delete new lists and items.
+We can add a checkmark for an item to make sure it is done.
+In addition, we have access to the searchbar and we can find the appropriate item on a longer list.
 
 ### What We can learn from this code
 * Simple use of Core Data.
