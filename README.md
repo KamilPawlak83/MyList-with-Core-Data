@@ -17,8 +17,9 @@ In addition, we have access to the searchbar and we can find the appropriate ite
 * Segue and how to prepare for it.
 * textField with UIAlertAction.
 * When to save, load, update and delete data.
+* MVC
 
  
-### UI
+### UI example
 
 ![MyList](https://user-images.githubusercontent.com/73897166/136010492-71976545-7334-4801-9c86-cbd7d898b674.png)
