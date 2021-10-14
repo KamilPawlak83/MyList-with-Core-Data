@@ -85,7 +85,7 @@ class ItemListController: SwipeCellKitController {
     // Item.fetchRequest() is a default value in this case
     func loadItems(with request : NSFetchRequest<Item> = Item.fetchRequest(), predicate : NSPredicate? = nil) {
         
-        let categoryPredicate = NSPredicate(format: "parentRelationship.title matchEs %@", categoryPressed!.title!)
+        let categoryPredicate = NSPredicate(format: "parentRelationship.title MATCHES %@", categoryPressed!.title!)
         
         if let secondPredicate = predicate {
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, secondPredicate] )
